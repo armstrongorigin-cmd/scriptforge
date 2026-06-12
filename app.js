@@ -43,7 +43,7 @@
     text: 'Turn back or be unmade',
     script: 'xandarian',
     bg: 'obsidian',
-    size: 1, weather: 0, fade: 0, spacing: 1,
+    size: 1, weather: 0, fade: 0, spacing: 1, thick: 1, sharp: 0.5,
     align: 'center', aspect: 0.8, outline: false,
     effect: 'auto', color: null, seed: 7
   };
@@ -111,7 +111,7 @@
     for (let iter = 0; iter < 6; iter++) {
       placed.length = 0;
       const s = fontPx / 100;
-      const lw = script.strokeW * s;
+      const lw = script.strokeW * s * (opts.thick || 1);
       let bw, bh;
 
       if (script.dir === 'v') {
@@ -282,6 +282,7 @@
       passes = [{ c: oc, a: 0.85, w: 1.7 }].concat(passes);
     }
     const u = opts.weather;
+    const blurMul = 2 * (1 - (opts.sharp == null ? 0.5 : opts.sharp));
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     for (let pi = 0; pi < passes.length; pi++) {
@@ -294,7 +295,7 @@
         if (u > 0) alpha *= 1 - u * R() * 0.55;
         ctx.globalAlpha = clamp(alpha, 0.02, 1);
         ctx.lineWidth = Math.max(g.lw * ps.w, 0.6);
-        if (ps.blur) { ctx.shadowColor = ps.c; ctx.shadowBlur = g.lw * ps.blur; }
+        if (ps.blur && blurMul > 0.02) { ctx.shadowColor = ps.c; ctx.shadowBlur = g.lw * ps.blur * blurMul; }
         const jit = (ps.j ? g.lw * 0.45 : 0) + u * g.lw * 0.35;
         const dx = (ps.dx || 0) * g.lw + (jit ? (R() - 0.5) * 2 * jit : 0);
         const dy = (ps.dy || 0) * g.lw + (jit ? (R() - 0.5) * 2 * jit : 0);
@@ -338,6 +339,7 @@
     const baseWeather = bg.weather || 0;
     const opts = {
       size: state.size, spacing: state.spacing, align: state.align,
+      thick: state.thick, sharp: state.sharp,
       weather: clamp(state.weather + baseWeather * (state.weather === 0 ? 1 : 0.4), 0, 1),
       fade: state.fade, seed: state.seed,
       effect,
@@ -520,6 +522,8 @@
     el.oninput = () => { state[key] = parseFloat(el.value); queueRender(); };
   }
   bindRange('ctl-size', 'size');
+  bindRange('ctl-thick', 'thick');
+  bindRange('ctl-sharp', 'sharp');
   bindRange('ctl-weather', 'weather');
   bindRange('ctl-fade', 'fade');
   bindRange('ctl-spacing', 'spacing');

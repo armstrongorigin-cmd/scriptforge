@@ -1,5 +1,5 @@
 /* ScriptForge service worker — cache-first, bump CACHE_VERSION on every change */
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = 'scriptforge-' + CACHE_VERSION;
 const ASSETS = [
   './',
