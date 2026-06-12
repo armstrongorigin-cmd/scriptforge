@@ -1,0 +1,15 @@
+{
+  "name": "ScriptForge",
+  "short_name": "ScriptForge",
+  "description": "Write in fantasy cyphers and scripts — Xandarian, Willowscript, Tendrilis and more — rendered onto carved, inked, and burned surfaces.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#16120e",
+  "theme_color": "#16120e",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

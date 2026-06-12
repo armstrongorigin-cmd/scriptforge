@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>ScriptForge</title>
+<meta name="description" content="Write in fantasy cyphers — rendered onto carved, inked, and burned surfaces.">
+<meta name="theme-color" content="#16120e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ScriptForge">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-180.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-glyph">&#934;</span> ScriptForge</div>
+  <div class="topbar-actions">
+    <button id="btn-legend" class="icon-btn" title="Alphabet key" aria-label="Alphabet key">&#9783;</button>
+    <button id="btn-export" class="icon-btn accent" title="Save image" aria-label="Save image">&#8615;</button>
+  </div>
+</header>
+
+<main>
+  <div id="stage-wrap">
+    <canvas id="stage"></canvas>
+  </div>
+
+  <section class="controls">
+    <div class="input-row">
+      <textarea id="input" rows="2" placeholder="Type your message&hellip;" autocapitalize="off" autocomplete="off" spellcheck="false"></textarea>
+      <div class="input-btns">
+        <button id="btn-phrases" class="small-btn" title="Phrase library">&#128214; Phrases</button>
+        <button id="btn-random" class="small-btn" title="Random phrase">&#127922; Random</button>
+      </div>
+    </div>
+
+    <div class="strip-label">Script</div>
+    <div id="script-chips" class="chip-row" role="tablist"></div>
+
+    <div class="strip-label">Surface <span id="bg-name" class="strip-hint"></span></div>
+    <div id="bg-strip" class="bg-row"></div>
+
+    <details id="style-panel">
+      <summary>Style &amp; weathering</summary>
+      <div class="panel-grid">
+        <label class="ctl">Finish
+          <select id="ctl-effect"></select>
+        </label>
+        <label class="ctl">Ink color
+          <span class="color-wrap"><input type="color" id="ctl-color"><button id="ctl-color-reset" class="mini-btn" title="Reset to surface default">auto</button></span>
+        </label>
+        <label class="ctl">Size
+          <input type="range" id="ctl-size" min="0.4" max="2.2" step="0.05" value="1">
+        </label>
+        <label class="ctl">Weathering
+          <input type="range" id="ctl-weather" min="0" max="1" step="0.02" value="0">
+        </label>
+        <label class="ctl">Fade
+          <input type="range" id="ctl-fade" min="0" max="0.85" step="0.02" value="0">
+        </label>
+        <label class="ctl">Spacing
+          <input type="range" id="ctl-spacing" min="0.7" max="1.8" step="0.05" value="1">
+        </label>
+        <label class="ctl">Shape
+          <select id="ctl-aspect">
+            <option value="0.8">Page (4:5)</option>
+            <option value="1">Square</option>
+            <option value="1.78">Banner (16:9)</option>
+            <option value="0.5">Tall scroll (1:2)</option>
+          </select>
+        </label>
+        <label class="ctl">Align
+          <select id="ctl-align">
+            <option value="center">Center</option>
+            <option value="left">Start</option>
+          </select>
+        </label>
+        <label class="ctl ctl-check"><input type="checkbox" id="ctl-outline"> Outline glyphs</label>
+        <button id="ctl-reseed" class="small-btn">&#8635; Re-roll hand jitter</button>
+      </div>
+    </details>
+  </section>
+</main>
+
+<div id="sheet-backdrop" hidden></div>
+
+<aside id="phrase-sheet" class="sheet" hidden>
+  <div class="sheet-head">
+    <strong>Phrase library</strong>
+    <button class="icon-btn sheet-close" data-close="phrase-sheet">&#10005;</button>
+  </div>
+  <input id="phrase-search" type="search" placeholder="Search phrases&hellip;">
+  <div id="phrase-cats" class="chip-row"></div>
+  <ul id="phrase-list"></ul>
+</aside>
+
+<aside id="legend-sheet" class="sheet" hidden>
+  <div class="sheet-head">
+    <strong id="legend-title">Alphabet key</strong>
+    <button class="icon-btn sheet-close" data-close="legend-sheet">&#10005;</button>
+  </div>
+  <p class="legend-note" id="legend-note"></p>
+  <div id="legend-grid"></div>
+</aside>
+
+<div id="toast" hidden></div>
+
+<script src="glyphs-xandarian.js"></script>
+<script src="glyphs-willowscript.js"></script>
+<script src="glyphs-tendrilis.js"></script>
+<script src="glyphs-dwarvish.js"></script>
+<script src="glyphs-aeldari.js"></script>
+<script src="backgrounds.js"></script>
+<script src="phrases.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
